@@ -1,11 +1,12 @@
 import React from 'react';
 import Game from "./components/Game"
+import "./App.css";
 
 
 function App() {
   
   return (
-    <div>
+    <div className="container">
       <h1>Conway's Game of Life</h1>
       <Game/>
     </div>

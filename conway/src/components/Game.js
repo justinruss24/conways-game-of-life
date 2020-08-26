@@ -1,20 +1,7 @@
 import React, { useState, useCallback, useRef } from 'react';
 import produce from 'immer';
 import "../App.css";
-
-
-
-const operations = [
-    [0, 1],
-    [0, -1],
-    [1, -1],
-    [-1, 1],
-    [1, 1],
-    [-1, -1],
-    [1, 0],
-    [-1, 0]
-];
-
+import operations from "./Operations"
 
 
 const Game = () => {
@@ -31,6 +18,7 @@ const Game = () => {
         setGen(0)
         return rows;
     }
+    const [speed, setSpeed] = useState(500);
     const [grid, setGrid] = useState(() => {
         return emptyGrid()
     });
@@ -66,34 +54,15 @@ const Game = () => {
             })
         })
         setGen(prevState => prevState + 1)
-        setTimeout(runGame, 500);
+        setTimeout(runGame, speed);
     }, []);
 
     return (
         <>
-        <button className="btn"
-            onClick={() => {
-                setRun(!run);
-                // set runRef current to true in case the state does not update in time
-                if (!run) {
-                    runRef.current = true;
-                    runGame();}}}>
-            {run ? "STOP" : "START"}
-        </button>
-        <button className="btn" onClick={() => {setGrid(emptyGrid())}}>
-            CLEAR
-        </button>
-        <button className="btn" onClick={() => {
-                const rows = [];
-                for (let i = 0; i < numRows; i++) {
-                    rows.push(Array.from(Array(numCols), () => (Math.random() > 0.7 ? 1 : 0)))}
-                setGrid(rows)}}>
-            RANDOM
-        </button>
-            <div>
-                <h2>Generation Count: {gen}</h2>
-            </div>
             <div className="gridContainer">
+                <div>
+                    <h2>Generation Count: {gen}</h2>
+                </div>
                 <div className="gameGrid"
                     style={{
                         display: "grid",
@@ -102,7 +71,7 @@ const Game = () => {
                 >
                     {grid.map((rows, i) =>
                         rows.map((col, k) => (
-                            <div
+                            <div className="game"
                                 key={`${i}-${k}`}
                                 onClick={() => {
                                     const newGrid = produce(grid, (gridCopy) => {
@@ -113,12 +82,37 @@ const Game = () => {
                                 style={{
                                     width: 20,
                                     height: 20,
-                                    backgroundColor: grid[i][k] ? "black" : undefined,
-                                    border: "1px solid black",
+                                    backgroundColor: grid[i][k] ? "navy" : undefined,
+                                    border: "1px solid navy",
                                 }}
                             />
                         ))
                     )}
+                </div>
+                <div className="btnContainer">
+                    <button className="btn"
+                        onClick={() => {
+                            setRun(!run);
+                            // set runRef current to true in case the state does not update in time
+                            if (!run) {
+                                runRef.current = true;
+                                runGame();
+                            }
+                        }}>
+                        {run ? "STOP" : "START"}
+                    </button>
+                    <button className="btn" onClick={() => { setGrid(emptyGrid()) }}>
+                        CLEAR
+                    </button>
+                    <button className="btn" onClick={() => {
+                        const rows = [];
+                        for (let i = 0; i < numRows; i++) {
+                            rows.push(Array.from(Array(numCols), () => (Math.random() > 0.7 ? 1 : 0)))
+                        }
+                        setGrid(rows)
+                    }}>
+                        RANDOM
+                    </button>
                 </div>
             </div>
             
