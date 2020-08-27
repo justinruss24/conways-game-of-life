@@ -5,9 +5,9 @@ import operations from "./Operations"
 
 
 const Game = () => {
-    const [dimension, setDimension] = useState(25)
-    const numRows = dimension;
-    const numCols = numRows;
+    // const [dimension, setDimension] = useState(25)
+    const numRows = 25;
+    const numCols= 25;
     const [gen, setGen] = useState(0);
     const [run, setRun] = useState(false);
     const emptyGrid = () => {
@@ -62,8 +62,9 @@ const Game = () => {
       <>
         <div className="gridContainer">
           <div className="gameplay">
-            <h2>Generation Count: {gen}</h2>
-            <h3>Speed: {speed === 500 ? ".5 seconds" : "1 second"}</h3>
+            <h3>Generation: {gen}</h3>
+            <h3>Grid: {numCols === 25 ? "25x25" : "10x10"} </h3>
+            <h3>Speed:{speed === 500 ? "0.5s" : "1s"}</h3>
           </div>
           <div
             className="gameGrid"
@@ -131,22 +132,24 @@ const Game = () => {
             >
               RANDOM
             </button>
-            {(!runRef.current) ? 
-                <button
+            {!runRef.current ? (
+              <button
                 className="btn"
                 onClick={() => {
-                    if(speed === 500) {
-                        setSpeed(1000)
-                        // console.log(speed)
-                    } else {
-                        setSpeed(500)
-                        // console.log(speed)
-                    }
-                }}>
-                    {speed === 500 ? "SLOWER" : "FASTER"}
-                </button> : <span></span>
-            }
-            
+                  if (speed === 500) {
+                    setSpeed(1000);
+                    // console.log(speed)
+                  } else {
+                    setSpeed(500);
+                    // console.log(speed)
+                  }
+                }}
+              >
+                {speed === 500 ? "SLOWER" : "FASTER"}
+              </button>
+            ) : (
+              <span></span>
+            )}
           </div>
         </div>
       </>

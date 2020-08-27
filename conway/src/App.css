@@ -6,12 +6,13 @@
 }
 .btn {
   height: 2em;
-  width: 6em;
+  width: 120px;
   border-radius: 5px;
   background: navy;
   color: white;
   margin: 1%;
   border: none;
+  font-size: 12px;
 }
 .middle {
   display: flex;
@@ -24,6 +25,7 @@
   width: 90%;
   display: flex;
   justify-content: center;
+  margin-bottom: 2%;
 }
 .container {
   width: 90%;
@@ -82,5 +84,12 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
+  width: 100%;
 }
+
+h3 {
+  width: 33%;
+}
+
+
