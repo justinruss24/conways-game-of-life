@@ -55,69 +55,102 @@ const Game = () => {
         })
         setGen(prevState => prevState + 1)
         setTimeout(runGame, speed);
-    }, []);
+        console.log(speed)
+    }, [{speed}]);
 
     return (
-        <>
-            <div className="gridContainer">
-                <div>
-                    <h2>Generation Count: {gen}</h2>
-                </div>
-                <div className="gameGrid"
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns: `repeat(${numCols}, 20px)`,
-                    }}
-                >
-                    {grid.map((rows, i) =>
-                        rows.map((col, k) => (
-                            <div className="game"
-                                key={`${i}-${k}`}
-                                onClick={() => {
-                                    const newGrid = produce(grid, (gridCopy) => {
-                                        gridCopy[i][k] = grid[i][k] ? 0 : 1;
-                                    });
-                                    setGrid(newGrid);
-                                }}
-                                style={{
-                                    width: 20,
-                                    height: 20,
-                                    backgroundColor: grid[i][k] ? "navy" : undefined,
-                                    border: "1px solid navy",
-                                }}
-                            />
-                        ))
-                    )}
-                </div>
-                <div className="btnContainer">
-                    <button className="btn"
-                        onClick={() => {
-                            setRun(!run);
-                            // set runRef current to true in case the state does not update in time
-                            if (!run) {
-                                runRef.current = true;
-                                runGame();
-                            }
-                        }}>
-                        {run ? "STOP" : "START"}
-                    </button>
-                    <button className="btn" onClick={() => { setGrid(emptyGrid()) }}>
-                        CLEAR
-                    </button>
-                    <button className="btn" onClick={() => {
-                        const rows = [];
-                        for (let i = 0; i < numRows; i++) {
-                            rows.push(Array.from(Array(numCols), () => (Math.random() > 0.7 ? 1 : 0)))
-                        }
-                        setGrid(rows)
-                    }}>
-                        RANDOM
-                    </button>
-                </div>
-            </div>
+      <>
+        <div className="gridContainer">
+          <div className="gameplay">
+            <h2>Generation Count: {gen}</h2>
+            <h3>Speed: {speed === 500 ? ".5 seconds" : "1 second"}</h3>
+          </div>
+          <div
+            className="gameGrid"
+            style={{
+              display: "grid",
+              gridTemplateColumns: `repeat(${numCols}, 20px)`,
+            }}
+          >
+            {grid.map((rows, i) =>
+              rows.map((col, k) => (
+                <div
+                  className="game"
+                  key={`${i}-${k}`}
+                  onClick={() => {
+                    const newGrid = produce(grid, (gridCopy) => {
+                      gridCopy[i][k] = grid[i][k] ? 0 : 1;
+                    });
+                    setGrid(newGrid);
+                  }}
+                  style={{
+                    width: 20,
+                    height: 20,
+                    backgroundColor: grid[i][k] ? "navy" : undefined,
+                    border: "1px solid navy",
+                  }}
+                />
+              ))
+            )}
+          </div>
+          <div className="btnContainer">
+            <button
+              className="btn"
+              onClick={() => {
+                setRun(!run);
+                // set runRef current to true in case the state does not update in time
+                if (!run) {
+                  runRef.current = true;
+                  runGame();
+                }
+              }}
+            >
+              {run ? "STOP" : "START"}
+            </button>
+            <button
+              className="btn"
+              onClick={() => {
+                setGrid(emptyGrid());
+              }}
+            >
+              CLEAR
+            </button>
+            <button
+              className="btn"
+              onClick={() => {
+                const rows = [];
+                for (let i = 0; i < numRows; i++) {
+                  rows.push(
+                    Array.from(Array(numCols), () =>
+                      Math.random() > 0.7 ? 1 : 0
+                    )
+                  );
+                }
+                setGrid(rows);
+              }}
+            >
+              RANDOM
+            </button>
+            {(!runRef.current) ? 
+                <button
+                className="btn"
+                onClick={() => {
+                    if(speed === 500) {
+                        setSpeed(1000)
+                        // console.log(speed)
+                    } else {
+                        setSpeed(500)
+                        // console.log(speed)
+                    }
+                }}>
+                    {speed === 500 ? "SLOWER" : "FASTER"}
+                </button> : <span></span>
+            }
             
-        </>
-    )
+          </div>
+        </div>
+      </>
+    );
 }
 
 export default Game;

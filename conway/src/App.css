@@ -1,13 +1,23 @@
 .App {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 .btn {
   height: 2em;
   width: 6em;
   border-radius: 5px;
-  background: tan;
+  background: navy;
   color: white;
   margin: 1%;
+  border: none;
+}
+.middle {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-direction: row;
 }
 
 .gameGrid {
@@ -16,10 +26,11 @@
   justify-content: center;
 }
 .container {
-  width: 80%;
+  width: 90%;
   display: flex;
   justify-content: center;
   flex-direction: column;
+  align-items: center;
 }
 .btnContainer {
   width: 80%;
@@ -37,4 +48,39 @@
 }
 body {
   color: navy;
+  background-color: #fcf2dc;
+  display: flex;
+  justify-content: center;
+  line-height: 1.2;
+}
+.rulesContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  flex-direction: column;
+  margin: 2%;
+}
+
+.headerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  margin: 2%;
+}
+
+.aboutContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  flex-direction: column;
+  margin: 2%;
+}
+.gameplay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
